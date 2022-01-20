@@ -1,5 +1,5 @@
 import React, { Component} from "react";
-import {hot} from "react-hot-loader";
+import { Link } from "react-router-dom";
 import "./App.css";
 
 class App extends Component{
@@ -7,9 +7,10 @@ class App extends Component{
     return(
       <div className="App">
         <h1> Hello, World! </h1>
+        <Link to="/session">Create Session</Link>
       </div>
     );
   }
 }
 
-export default hot(module)(App);
+export default App;
