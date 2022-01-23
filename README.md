@@ -1,3 +1,12 @@
+# Commands
+**npm run start** -> starts react server at port 3000
+**npm run backend** -> starts backend server at port 5001
+**npm run fullstack** -> runs above commands in parallel
+
+# API
+**/new_session** -> returns {code: ret_val}, where ret_val is a four-digit code that is unique to the current server instance
+**/session_list** -> returns {code_list: ret_val}, where ret_val is a list of all session codes that were requested durint the current server instance
+
 # Repository Template
 
 [![Build Status](https://travis-ci.org/cs130-w21/template.svg?branch=master)](https://travis-ci.org/cs130-w21/template)
