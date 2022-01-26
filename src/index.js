@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import App from "./App.js";
-import Session from "./routes/session.js"
+import { Provider } from 'react-redux';
+import store from './routes/store/store';
+import AppRouter from './routes/router/AppRouter';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './routes/styles.css';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App />}/>
-            <Route path="session" element={<Session />}/>
-        </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+        <AppRouter />
+    </Provider>
 , document.getElementById("root"));
