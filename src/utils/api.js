@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { setAuthHeader } from './functions';
-//import 'regenerator-runtime/runtime';
-export const get = (url, params) => {
+import 'regenerator-runtime/runtime';
+export const get = async (url, params) => {
   setAuthHeader();
-  const result = axios.get(url, params);
+  const result = await axios.get(url, params);
   return result.data;
 };
-export const post = (url, params) => {
+export const post = async (url, params) => {
   setAuthHeader();
-  const result = axios.post(url, params);
+  const result = await axios.post(url, params);
   return result.data;
 };

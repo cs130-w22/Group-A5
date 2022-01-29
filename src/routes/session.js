@@ -11,7 +11,7 @@ import {
 const Session = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('albums');
-
+  
   const handleSearch = (searchTerm) => {
     setIsLoading(true);
     props.dispatch(initiateGetResult(searchTerm)).then(() => {
@@ -28,11 +28,10 @@ const Session = (props) => {
   const result = { albums, artists, playlist };
 
   return (
-    //<h1>DASHBOARD TEST</h1>
     <React.Fragment>
       <Header />
       <SearchForm handleSearch={handleSearch} />
-      {/*<Loader show={isLoading}>Loading...</Loader>*/}
+      {/* <Loader show={isLoading}>Loading...</Loader> */}
       <SearchResult
         result={result}
         //loadMore={loadMore}
