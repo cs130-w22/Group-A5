@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import './../style/SearchForm.css'; 
+
 const SearchForm = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -18,11 +20,11 @@ const SearchForm = (props) => {
   };
   return (
     <div>
-      <Form onSubmit={handleSearch}>
+      <Form className="flex-container" onSubmit={handleSearch}>
         {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Enter search term</Form.Label>
+        <Form.Group className="form-group" controlId="formBasicEmail">
           <Form.Control
+            className="form-control"
             type="search"
             name="searchTerm"
             value={searchTerm}
@@ -31,7 +33,7 @@ const SearchForm = (props) => {
             autoComplete="off"
           />
         </Form.Group>
-        <Button variant="info" type="submit">
+        <Button className="form-button" variant="info" type="submit">
           Search
         </Button>
       </Form>
