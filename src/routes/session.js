@@ -1,13 +1,12 @@
 import React, { Component, useState } from "react";
 import { connect } from 'react-redux';
+import SearchFilters from "../components/SearchFilters";
 import SearchForm from "../components/SearchForm";
 import SearchResult from "../components/SearchResult";
 import Header from "../components/header";
 import Loader from "../components/Loader";
-import {
-  initiateGetResult
-} from './actions/result';
-//function Session() {
+import {  initiateGetResult } from './actions/result';
+
 const Session = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('albums');
@@ -30,12 +29,18 @@ const Session = (props) => {
   return (
     <React.Fragment>
       <Header />
+      <SearchFilters 
+        result={result}
+        //loadMore={loadMore}
+        setCategory={setCategory}
+        selectedCategory={selectedCategory}
+      />
       <SearchForm handleSearch={handleSearch} />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
       <SearchResult
         result={result}
         //loadMore={loadMore}
-        setCategory={setCategory}
+        //setCategory={setCategory}
         selectedCategory={selectedCategory}
       /> 
     </React.Fragment>
