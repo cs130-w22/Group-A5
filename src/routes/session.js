@@ -23,8 +23,8 @@ const Session = (props) => {
     setSelectedCategory(category);
   };
 
-  const { albums, artists, playlist } = props;
-  const result = { albums, artists, playlist };
+  const { albums, artists, playlist, tracks } = props;
+  const result = { albums, artists, playlist, tracks };
 
   return (
     <React.Fragment>
@@ -35,14 +35,12 @@ const Session = (props) => {
         setCategory={setCategory}
         selectedCategory={selectedCategory}
       />
-      <SearchForm handleSearch={handleSearch} />
-      {/* <Loader show={isLoading}>Loading...</Loader> */}
-      <SearchResult
+      <SearchForm 
+        handleSearch={handleSearch} 
         result={result}
-        //loadMore={loadMore}
-        //setCategory={setCategory}
         selectedCategory={selectedCategory}
-      /> 
+      />
+      {/* <Loader show={isLoading}>Loading...</Loader> */}
     </React.Fragment>
   );
   };
@@ -63,7 +61,8 @@ const Session = (props) => {
     return {
       albums: state.albums,
       artists: state.artists,
-      playlist: state.playlist
+      playlist: state.playlist,
+      tracks: state.tracks,
     };
   };
   
