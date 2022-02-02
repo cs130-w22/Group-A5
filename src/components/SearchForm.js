@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import SearchResult from "../components/SearchResult";
-
 import './../style/SearchForm.css'; 
 
 const SearchForm = (props) => {
@@ -10,10 +9,10 @@ const SearchForm = (props) => {
 
   const { result, selectedCategory } = props;
 
-  const handleInputChange = (event) => {
-    const searchTerm = event.target.value;
-    setSearchTerm(searchTerm);
-  };
+  useEffect(() => {
+    props.handleSearch(searchTerm);
+  }, [searchTerm])
+
   const handleSearch = (event) => {
     event.preventDefault();
     if (searchTerm.trim() !== '') {
@@ -23,25 +22,33 @@ const SearchForm = (props) => {
       setErrorMsg('Please enter a search term.');
     }
   };
+
+  const handleInputChange = (event) => {
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
+  };
+
   return (
     <div>
-      <Form className="d-flex flex-row justify-content-between align-items-center" onSubmit={handleSearch}>
-        {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+      {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+      <Form className="d-flex flex-row justify-content-between align-items-start" onSubmit={handleSearch}>
         <Form.Group className="form-group" controlId="formBasicEmail">
           <Form.Control
             className="form-control"
             type="search"
             name="searchTerm"
             value={searchTerm}
-            placeholder="Search for album, artist or playlist"
+            placeholder="Search for an album, artist, or song"
             onChange={handleInputChange}
             autoComplete="off"
           />
-          <SearchResult
-            result={result}
-            //loadMore={loadMore}
-            selectedCategory={selectedCategory}
-          /> 
+          {searchTerm && 
+          (<SearchResult
+              result={result}
+              //loadMore={loadMore}
+              selectedCategory={selectedCategory}
+            />
+          )} 
         </Form.Group>
         <Button className="form-button" variant="info" type="submit">
           Search
