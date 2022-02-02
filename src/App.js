@@ -19,7 +19,6 @@ const App = (props) => {
        <Button variant="info" type="submit" onClick={handleLogin}>
         Login to spotify
       </Button>
-      <Link to="/dashboard">Dashboard</Link> 
     </div>
   );
 };
