@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListGroup, Image, Button } from 'react-bootstrap';
 import _ from 'lodash';
-import "./../style/AlbumsList.css";
+import "./../style/TracksList.css";
 import music from '../images/music.jpeg';
 
 const TracksList = ({ tracks }) => {

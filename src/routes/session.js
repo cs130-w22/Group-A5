@@ -1,8 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
-import SearchFilters from "../components/SearchFilters";
 import SearchForm from "../components/SearchForm";
-import SearchResult from "../components/SearchResult";
 import Header from "../components/header";
 import Loader from "../components/Loader";
 import {  initiateGetResult } from './actions/result';
@@ -23,18 +21,12 @@ const Session = (props) => {
     setSelectedCategory(category);
   };
 
-  const { albums, artists, playlist, tracks } = props;
-  const result = { albums, artists, playlist, tracks };
+  const { tracks } = props;
+  const result = { tracks };
 
   return (
     <React.Fragment>
       <Header />
-      <SearchFilters 
-        result={result}
-        //loadMore={loadMore}
-        setCategory={setCategory}
-        selectedCategory={selectedCategory}
-      />
       <SearchForm 
         handleSearch={handleSearch} 
         result={result}

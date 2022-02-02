@@ -1,44 +1,8 @@
 import {
-    SET_ALBUMS,
-    ADD_ALBUMS,
-    SET_ARTISTS,
-    ADD_ARTISTS,
-    SET_PLAYLIST,
-    ADD_PLAYLIST,
     SET_TRACKS,
     ADD_TRACKS
   } from '../../utils/constants';
   import { get } from '../../utils/api';
-  
-  export const setAlbums = (albums) => ({
-    type: SET_ALBUMS,
-    albums
-  });
-  
-  export const addAlbums = (albums) => ({
-    type: ADD_ALBUMS,
-    albums
-  });
-  
-  export const setArtists = (artists) => ({
-    type: SET_ARTISTS,
-    artists
-  });
-  
-  export const addArtists = (artists) => ({
-    type: ADD_ARTISTS,
-    artists
-  });
-  
-  export const setPlayList = (playlists) => ({
-    type: SET_PLAYLIST,
-    playlists
-  });
-  
-  export const addPlaylist = (playlists) => ({
-    type: ADD_PLAYLIST,
-    playlists
-  });
 
   export const setTracks = (tracks) => ({
     type: SET_TRACKS,
@@ -58,11 +22,7 @@ import {
         )}&type=album,playlist,artist,track`;
         const result = await get(API_URL);
         console.log(result);
-        const { albums, artists, playlists, tracks } = result;
-        console.log(tracks);
-        dispatch(setAlbums(albums));
-        dispatch(setArtists(artists));
-        dispatch(setPlayList(playlists));
+        const { tracks } = result;
         return dispatch(setTracks(tracks));
       } catch (error) {
         console.log('error', error);

@@ -9,7 +9,6 @@ const SearchForm = (props) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   const { result, selectedCategory } = props;
-  const { albums, artists, playlist, tracks } = result;
 
   const handleInputChange = (event) => {
     const searchTerm = event.target.value;
@@ -41,7 +40,6 @@ const SearchForm = (props) => {
           <SearchResult
             result={result}
             //loadMore={loadMore}
-            //setCategory={setCategory}
             selectedCategory={selectedCategory}
           /> 
         </Form.Group>
