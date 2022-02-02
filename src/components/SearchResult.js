@@ -12,15 +12,6 @@ const SearchResult = (props) => {
 
   return (
     <React.Fragment>
-      <div className={`${selectedCategory === 'albums' ? 'searchResult' : 'hide'}`}>
-        {albums && <AlbumsList albums={albums} />}
-      </div>
-      <div className={`${selectedCategory === 'artists' ? 'searchResult' : 'hide'}`}>
-        {artists && <ArtistsList artists={artists} />}
-      </div>
-      <div className={`${selectedCategory === 'playlist' ? 'searchResult' : 'hide'}`}>
-        {playlist && <PlayList playlist={playlist} />}
-      </div>
       <div className={`${selectedCategory === 'tracks' ? 'searchResult' : 'hide'}`}>
         {tracks && <TracksList tracks={tracks} />}
       </div>

@@ -9,13 +9,13 @@ import {  initiateGetResult } from './actions/result';
 
 const Session = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('albums');
+  const [selectedCategory, setSelectedCategory] = useState('tracks');
   
   const handleSearch = (searchTerm) => {
     setIsLoading(true);
     props.dispatch(initiateGetResult(searchTerm)).then(() => {
       setIsLoading(false);
-      setSelectedCategory('albums');
+      setSelectedCategory('tracks');
     });
   };
 

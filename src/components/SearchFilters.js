@@ -10,30 +10,6 @@ const SearchFilters = (props) => {
             <div className="search-buttons">
                 <button
                     className={`${
-                    selectedCategory === 'albums' ? 'btn active' : 'btn'
-                    }`}
-                    onClick={() => setCategory('albums')}
-                >
-                    Albums
-                </button>
-                <button
-                    className={`${
-                    selectedCategory === 'artists' ? 'btn active' : 'btn'
-                    }`}
-                    onClick={() => setCategory('artists')}
-                >
-                    Artists
-                </button>
-                <button
-                    className={`${
-                    selectedCategory === 'playlist' ? 'btn active' : 'btn'
-                    }`}
-                    onClick={() => setCategory('playlist')}
-                >
-                    PlayLists
-                </button>
-                <button
-                    className={`${
                     selectedCategory === 'tracks' ? 'btn active' : 'btn'
                     }`}
                     onClick={() => setCategory('tracks')}
