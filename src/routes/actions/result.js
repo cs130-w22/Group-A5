@@ -4,7 +4,9 @@ import {
     SET_ARTISTS,
     ADD_ARTISTS,
     SET_PLAYLIST,
-    ADD_PLAYLIST
+    ADD_PLAYLIST,
+    SET_TRACKS,
+    ADD_TRACKS
   } from '../../utils/constants';
   import { get } from '../../utils/api';
   
@@ -37,19 +39,31 @@ import {
     type: ADD_PLAYLIST,
     playlists
   });
+
+  export const setTracks = (tracks) => ({
+    type: SET_TRACKS,
+    tracks
+  });
+  
+  export const addTracks = (tracks) => ({
+    type: ADD_TRACKS,
+    tracks
+  });
   
   export const initiateGetResult = (searchTerm) => {
     return async (dispatch) => {
       try {
         const API_URL = `https://api.spotify.com/v1/search?query=${encodeURIComponent(
           searchTerm
-        )}&type=album,playlist,artist`;
+        )}&type=album,playlist,artist,track`;
         const result = await get(API_URL);
         console.log(result);
-        const { albums, artists, playlists } = result;
+        const { albums, artists, playlists, tracks } = result;
+        console.log(tracks);
         dispatch(setAlbums(albums));
         dispatch(setArtists(artists));
-        return dispatch(setPlayList(playlists));
+        dispatch(setPlayList(playlists));
+        return dispatch(setTracks(tracks));
       } catch (error) {
         console.log('error', error);
       }

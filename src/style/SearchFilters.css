@@ -5,14 +5,14 @@
     align-items: center;
   }
   
-  .search-buttons .btn {
+.search-buttons .btn {
     margin: 0.8rem;
     font-size: 1.2rem;
     letter-spacing: 1px;
     font-weight: bold;
     color: #778298;
-  }
-  
-  .search-buttons .btn:focus {
+}
+
+.search-buttons .btn:focus {
     box-shadow: none;
-  }
+}

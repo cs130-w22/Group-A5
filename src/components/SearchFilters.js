@@ -4,7 +4,6 @@ import "./../style/SearchFilters.css";
 
 const SearchFilters = (props) => {
     const { result, setCategory, selectedCategory } = props;
-    const { albums, artists, playlist } = result;
 
     return(
         <React.Fragment>
@@ -32,6 +31,14 @@ const SearchFilters = (props) => {
                     onClick={() => setCategory('playlist')}
                 >
                     PlayLists
+                </button>
+                <button
+                    className={`${
+                    selectedCategory === 'tracks' ? 'btn active' : 'btn'
+                    }`}
+                    onClick={() => setCategory('tracks')}
+                >
+                    Tracks
                 </button>
             </div>
         </React.Fragment>

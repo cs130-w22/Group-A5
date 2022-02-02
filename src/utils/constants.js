@@ -4,3 +4,5 @@ export const SET_ARTISTS = 'SET_ARTISTS';
 export const ADD_ARTISTS = 'ADD_ARTISTS';
 export const SET_PLAYLIST = 'SET_PLAYLIST';
 export const ADD_PLAYLIST = 'ADD_PLAYLIST';
+export const SET_TRACKS = 'SET_TRACKS';
+export const ADD_TRACKS = 'ADD_TRACKS';

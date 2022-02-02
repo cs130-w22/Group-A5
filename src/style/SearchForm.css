@@ -1,11 +1,3 @@
-.flex-container {
-    width: 100%;
-    display: flex; 
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .form-group {
     flex-basis: 92%;
     margin-right: 10px;
