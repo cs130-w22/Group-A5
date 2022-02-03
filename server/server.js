@@ -1,11 +1,18 @@
 const path = require("path");
 const express = require("express");
+const cors=require("cors");
 const app = express(); // create express app
 
 const PORT = 5001
 
 let codes = [0000];
 const sessions = new Map();//map code to session JSON
+
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
 
 function new_session(code) {
     let session = {
@@ -22,6 +29,8 @@ function add_song(code, user, sid) {
         upvotes: 1
     })
 }
+
+app.use(cors(corsOptions))
 
 //middleware that uses regex to check if session code exists
 app.use('/session/*', (req, res, next) => {
@@ -74,6 +83,8 @@ app.post("/session/add_song", (req, res) => {
     let sid = req.query.sid;
 
     add_song(code, user, sid);
+    
+    console.log("Song " + sid + " added to session " + code);
 
     res.send({
         status: 0, 
