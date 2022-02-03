@@ -14,16 +14,29 @@ import {
     tracks
   });
   
-  export const initiateGetResult = (searchTerm) => {
+  export const initiateGetSearchResult = (searchTerm) => {
     return async (dispatch) => {
       try {
         const API_URL = `https://api.spotify.com/v1/search?query=${encodeURIComponent(
           searchTerm
-        )}&type=album,playlist,artist,track`;
+        )}&type=track`;
         const result = await get(API_URL);
         console.log(result);
         const { tracks } = result;
         return dispatch(setTracks(tracks));
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+  };
+
+  export const initiateGetTrackResult = (trackID) => {
+    return async (dispatch) => {
+      try {
+        const API_URL = `https://api.spotify.com/v1/tracks/${encodeURIComponent(trackID)}`;
+        const result = await get(API_URL);
+        console.log(result);
+        return result;
       } catch (error) {
         console.log('error', error);
       }

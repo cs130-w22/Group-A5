@@ -1,4 +1,5 @@
 import React from "react";
+import { ListGroup } from 'react-bootstrap';
 import QueueRow from "./QueueRow";
 
 const SongQueue = () => {
@@ -10,25 +11,32 @@ const SongQueue = () => {
     function getSongQueue() {
 
     }
-
+    
+    // use the songID as the identifier of the song          
 
     return (
-        <div>
+        <ListGroup id="list-container" className="container-fluid">
             <QueueRow 
-                songName="Oops!...I Did It Again" 
-                songArtist="Britney Spears"
+                trackID='4dCJwNoQG5Fx42pqIz99Vn'
+                // track={testData}
                 songNominator="kt"
                 numVotes={4}
                 voteStatus={false}
             />
             <QueueRow 
-                songName="Heat Waves" 
-                songArtist="Glass Animals"
+                trackID='6I9VzXrHxO9rA9A5euc8Ak'
+                // track={testData2}
                 songNominator="kt"
                 numVotes={2}
                 voteStatus={false}
             />
-        </div>
+            <QueueRow
+                trackID='4MY1Y3WqsRSGB0YiR0kN4e'
+                songNominator="kt"
+                numVotes={5}
+                voteStatus={false}
+            />
+        </ListGroup>
     );
 }
 

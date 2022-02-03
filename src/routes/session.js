@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import SearchForm from "../components/SearchForm";
 import Header from "../components/header";
 import Loader from "../components/Loader";
-import {  initiateGetResult } from './actions/result';
+import InviteMembers from "../components/InviteMembers";
+import SongQueue from "../components/SongQueue";
+import { initiateGetSearchResult } from './actions/result';
 
 const Session = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +13,7 @@ const Session = (props) => {
   
   const handleSearch = (searchTerm) => {
     setIsLoading(true);
-    props.dispatch(initiateGetResult(searchTerm)).then(() => {
+    props.dispatch(initiateGetSearchResult(searchTerm)).then(() => {
       setIsLoading(false);
       setSelectedCategory('tracks');
     });
@@ -33,6 +35,8 @@ const Session = (props) => {
         selectedCategory={selectedCategory}
       />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
+      <InviteMembers/>
+      <SongQueue />
     </React.Fragment>
   );
   };
@@ -51,9 +55,6 @@ const Session = (props) => {
 
   const mapStateToProps = (state) => {
     return {
-      albums: state.albums,
-      artists: state.artists,
-      playlist: state.playlist,
       tracks: state.tracks,
     };
   };

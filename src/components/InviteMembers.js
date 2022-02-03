@@ -1,8 +1,9 @@
 import React from "react";
+import { Button } from 'react-bootstrap';
 
 const InviteMembers = () => {
   return (
-    <button>Invite Members</button>
+    <Button variant="primary">Invite Members</Button>
   );
 }
 
