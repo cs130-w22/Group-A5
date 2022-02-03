@@ -4,8 +4,30 @@
 **npm run fullstack** -> runs above commands in parallel
 
 # API
-**/new_session** -> returns {code: ret_val}, where ret_val is a four-digit code that is unique to the current server instance
-**/session_list** -> returns {code_list: ret_val}, where ret_val is a list of all session codes that were requested durint the current server instance
+GET **/new_session**:
+    return JSON:
+        _code_: unique 4-digit id 
+
+POST **/session/join**:
+    parameters:
+        _c_: 4-digit session code
+        _n_: name of user
+    return JSON:
+        _status_: 0 if request was successful
+
+POST **/session/add_song**:
+    parameters:
+        _c_: 4-digit session code
+        _n_: name of user adding the song
+        _sid_: song id
+    return JSON:
+        _status_: 0 if request was successful
+
+GET **/session/playlist**:
+    parameters:
+        _c_: 4-digit session code
+    return JSON:
+        _songs_: [{user, sid, upvotes}]
 
 # Repository Template
 
