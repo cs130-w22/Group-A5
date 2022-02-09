@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import Header from './components/header';
 import "./style/App.css";
 
-const REACT_APP_CLIENT_ID="ADD YOUR CLIENT ID";
+const REACT_APP_CLIENT_ID="CLIENT ID";
 const REACT_APP_AUTHORIZE_URL="https://accounts.spotify.com/authorize";
 const REACT_APP_REDIRECT_URL="http://localhost:3000/redirect";
 

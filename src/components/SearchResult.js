@@ -43,9 +43,7 @@ const SearchResult = (props) => {
       <div className={`${selectedCategory === 'albums' ? '' : 'hide'}`}>
         {albums && <AlbumsList albums={albums} />}
       </div>
-      <div className={`${selectedCategory === 'albums' ? '' : 'hide'}`}>
-        {albums && <AlbumsList albums={albums} />}
-      </div>
+      
       <div className={`${selectedCategory === 'artists' ? '' : 'hide'}`}>
         {artists && <ArtistsList artists={artists} />}
       </div>
