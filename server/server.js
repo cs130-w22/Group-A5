@@ -1,46 +1,53 @@
 const path = require("path");
 const express = require("express");
+const cors=require("cors");
 const app = express(); // create express app
 
 const PORT = 5001
 
 let codes = [0000];
-let session_list = [];//contains json for each session
+const sessions = new Map();//map code to session JSON
 
-//these paths don't require session code as a query parameter
-const exempt_paths = ['/', '/new_session', '/session_list', '/det_session_list']; 
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
 
-//middleware that checks if session code exists
-app.use((req, res, next) => {
-    let i = 0;
-    if(exempt_paths.includes(req.path)) {
-        i = 1;
-        return next();
+function new_session(code) {
+    let session = {
+        users: [],
+        songs: []
     }
+    sessions.set(code, session);
+}
+
+function add_song(code, user, sid) {
+    sessions.get(code).songs.push({
+        user: user,
+        sid: sid,
+        upvotes: 1
+    })
+}
+
+app.use(cors(corsOptions))
+
+//middleware that uses regex to check if session code exists
+app.use('/session/*', (req, res, next) => {
     //if session code is found, continue with request like normal 
-    session_list.forEach((x) => {
-        if(x.code == req.query.c) {
-            i = 1;
-            return next();
-        }
-    });
+    console.log("request with code " + req.query.c);
+    let code = req.query.c;
+    if(sessions.get(code) != undefined) {
+        next();
+    }
     //if session code does not exist, respond with error
-    if(i == 0){
+    else {
         res.send({
             status: 1, 
             message: "Code not found"
         });
     }
 }); 
-
-function new_session(code) {
-    let session = {
-        code: code,
-        users: [],
-        songs: []
-    }
-    session_list.push(session);
-}
 
 app.get("/", (req, res) => {
     res.send("<h1>hello world<h1>")
@@ -55,19 +62,14 @@ app.get("/new_session", (req, res) => {
     codes.push(new_code);
     res.send({code: new_code});
     //create new session json
-    new_session(new_code);
+    new_session(String(new_code));
 });
 
-app.post("/join_session", (req, res) => {
+app.post("/session/join", (req, res) => {
     let code = req.query.c;
     let name = req.query.n;
     //add name to correct session
-    session_list.forEach((x) => {
-        if(x.code == code) {
-            session = x;
-            x.users.push(name);
-        }
-    });
+    sessions.get(code).users.push(name);
 
     res.send({
         status: 0,
@@ -75,8 +77,28 @@ app.post("/join_session", (req, res) => {
     });
 });
 
+app.post("/session/add_song", (req, res) => {
+    let code = req.query.c;
+    let user = req.query.n;
+    let sid = req.query.sid;
+
+    add_song(code, user, sid);
+    
+    console.log("Song " + sid + " added to session " + code);
+
+    res.send({
+        status: 0, 
+        message: "Song " + sid + " added to session " + code
+    });    
+});
+
+app.get("/session/playlist", (req, res) => {
+    let code = req.query.c;
+    res.send({songs: sessions.get(code).songs});
+});
+
 app.get("/det_session_list", (req, res) => {
-    res.send({session_list: session_list});
+    res.send({session_list: [...sessions.entries()]});
 });
 
 app.get("/session_list", (req, res) => {

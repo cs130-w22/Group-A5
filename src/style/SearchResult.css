@@ -1,0 +1,5 @@
+.searchResult {
+    overflow-y: scroll;
+    height: 300px;
+    flex-basis: 92%; 
+}

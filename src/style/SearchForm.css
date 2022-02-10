@@ -1,0 +1,9 @@
+.form-group {
+    flex-basis: 92%;
+    margin-right: 10px;
+}
+
+.form-button { 
+    flex-basis: 8%;
+    margin-bottom: 1rem;
+}
