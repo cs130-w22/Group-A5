@@ -1,33 +1,33 @@
 # Commands
-**npm run start** -> starts react server at port 3000
-**npm run backend** -> starts backend server at port 5001
+**npm run start** -> starts react server at port 3000<br>
+**npm run backend** -> starts backend server at port 5001<br>
 **npm run fullstack** -> runs above commands in parallel
 
 # API
-GET **/new_session**:
-    return JSON:
-        _code_: unique 4-digit id 
-
+GET **/new_session**:<br>
+- return JSON:
+  - _code_: unique 4-digit id
+---  
 POST **/session/join**:
-    parameters:
-        _c_: 4-digit session code
-        _n_: name of user
-    return JSON:
-        _status_: 0 if request was successful
-
+- parameters:
+  - _c_: 4-digit session code<br>
+  - _n_: name of user<br>
+- return JSON:
+  - _status_: 0 if request was successful
+---
 POST **/session/add_song**:
-    parameters:
-        _c_: 4-digit session code
-        _n_: name of user adding the song
-        _sid_: song id
-    return JSON:
-        _status_: 0 if request was successful
-
+- parameters:
+  - _c_: 4-digit session code
+  - _n_: name of user adding the song
+  - _sid_: song id
+- return JSON:
+  - _status_: 0 if request was successful
+---
 GET **/session/playlist**:
-    parameters:
-        _c_: 4-digit session code
-    return JSON:
-        _songs_: [{user, sid, upvotes}]
+- parameters:
+  - _c_: 4-digit session code
+- return JSON:
+  - _songs_: [{user, sid, upvotes}]
 
 # Repository Template
 
