@@ -8,6 +8,20 @@ const PORT = 5001
 let codes = [0000];
 const sessions = new Map();//map code to session JSON
 
+/*
+session JSON structure:
+{
+    users: [],
+    songs: []
+}
+song JSON structure:
+{
+    user: str,
+    sid: str,
+    upvotes: int
+}
+*/
+
 const corsOptions ={
     origin:'*', 
     credentials:true,            //access-control-allow-credentials:true
@@ -60,7 +74,10 @@ app.get("/new_session", (req, res) => {
         new_code = Math.floor(1000 + Math.random() * 8999);
     }
     codes.push(new_code);
-    res.send({code: new_code});
+    res.send({
+        status: 0, 
+        code: new_code
+    });
     //create new session json
     new_session(String(new_code));
 });
@@ -92,17 +109,32 @@ app.post("/session/add_song", (req, res) => {
     });    
 });
 
+app.get("/session/users", (req, res) => {
+    let code = req.query.c;
+    res.send({
+        status: 0, 
+        users: sessions.get(code).users
+    });
+});
+
 app.get("/session/playlist", (req, res) => {
     let code = req.query.c;
-    res.send({songs: sessions.get(code).songs});
+    res.send({
+        status: 0, 
+        songs: sessions.get(code).songs
+    });
 });
 
 app.get("/det_session_list", (req, res) => {
-    res.send({session_list: [...sessions.entries()]});
+    res.send({
+        session_list: [...sessions.entries()]
+    });
 });
 
 app.get("/session_list", (req, res) => {
-    res.send({code_list: codes});
+    res.send({
+        code_list: codes
+    });
 });
 
 // start express server on port 5001

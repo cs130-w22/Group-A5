@@ -27,7 +27,13 @@ GET **/session/playlist**:
 - parameters:
   - _c_: 4-digit session code
 - return JSON:
-  - _songs_: [{user, sid, upvotes}]
+  - _songs_: [{user, sid1, upvotes}, {user, sid2, upvotes}, ...]
+---
+GET **/session/users**:
+- parameters:
+  - _c_: 4-digit session code
+- return JSON:
+  - _users_: [user1, user2, ...]
 
 # Repository Template
 
