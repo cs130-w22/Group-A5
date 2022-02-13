@@ -16,7 +16,7 @@ session JSON structure:
 }
 song JSON structure:
 {
-    user: str,
+    users: [],
     sid: str,
     upvotes: int
 }
@@ -38,7 +38,7 @@ function new_session(code) {
 
 function add_song(code, user, sid) {
     sessions.get(code).songs.push({
-        user: user,
+        users: [user],
         sid: sid,
         upvotes: 1
     })
@@ -99,14 +99,57 @@ app.post("/session/add_song", (req, res) => {
     let user = req.query.n;
     let sid = req.query.sid;
 
+    sessions.get(code).songs.findIndex((x) => {
+        if(x.sid == sid) {
+            res.send({
+                status: 0,
+                message: "Song " + sid + " already added to session " + code
+            });
+            return;
+        }
+    });
+
     add_song(code, user, sid);
     
-    console.log("Song " + sid + " added to session " + code);
+    //console.log("Song " + sid + " added to session " + code);
 
     res.send({
         status: 0, 
         message: "Song " + sid + " added to session " + code
     });    
+});
+
+app.post("/session/upvote", (req, res) => {
+    let code = req.query.c;
+    let user = req.query.n;
+    let sid = req.query.sid;
+
+    let songs = sessions.get(code).songs;
+    let index = songs.findIndex((x) => {
+        return x.sid == sid;
+    });
+
+    songs[index].upvotes += 1;
+
+    if(user == undefined) user = "";
+    else songs[index].users.push(user);
+
+    //keep swapping until at correct place or at index 0
+    while(index > 0 && songs[index].upvotes > songs[index - 1].upvotes) {
+        let temp = Object.assign({}, songs[index]);
+        songs[index] = Object.assign({}, songs[index - 1]);
+        songs[index - 1] = Object.assign({}, temp);
+
+        index--;
+    }
+    //update hashmap with sorted list
+    sessions.get(code).songs = songs;
+    console.log(sessions.get(code).songs);
+
+    res.send({
+        status: 0, 
+        message: "Song " + sid + " in session " + code + " upvoted by " + user
+    });
 });
 
 app.get("/session/users", (req, res) => {
