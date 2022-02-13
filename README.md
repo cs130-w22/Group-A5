@@ -35,7 +35,7 @@ GET **/session/users**:
 - return JSON:
   - _users_: [user, ...]
 ---
-GET **/session/upvote**:
+POST **/session/upvote**:
 - parameters:
   - _c_: 4-digit session code
   - _n_: name of user upvoting the song
