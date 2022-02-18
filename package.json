@@ -35,6 +35,8 @@
   "dependencies": {
     "axios": "0.19.2",
     "bootstrap": "4.5.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
     "file-loader": "^6.2.0",
     "jquery": "^3.6.0",
     "lodash": "4.17.19",
