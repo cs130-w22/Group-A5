@@ -1,0 +1,14 @@
+const express = require('express');
+const chai = require(‘chai’);
+const request = require(‘supertest’);
+
+const app = express();
+
+describe('Create New Session', () => {
+	it('should create a new key-value pair in the Map, with a unique code', () => {
+		request(app)
+		.get('new_session');
+		.then((res) => {
+		expect(res.code).to.be.an('int');
+	});
+});
