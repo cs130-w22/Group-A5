@@ -8,6 +8,19 @@ const PORT = 5001
 let codes = [0000];
 const sessions = new Map();//map code to session JSON
 
+/*
+session JSON structure:
+{
+    users: [],
+    songs: []
+}
+song JSON structure:
+{
+    users: [],
+    sid: str,
+    upvotes: int
+}
+*/
 
 const corsOptions ={
     origin:'*', 
@@ -25,7 +38,7 @@ function new_session(code) {
 
 function add_song(code, user, sid) {
     sessions.get(code).songs.push({
-        user: user,
+        users: [user],
         sid: sid,
         upvotes: 1
     })
@@ -63,7 +76,10 @@ app.get("/new_session", (req, res) => {
         new_code = Math.floor(1000 + Math.random() * 8999);
     }
     codes.push(new_code);
-    res.send({code: new_code});
+    res.send({
+        status: 0, 
+        code: new_code
+    });
     //create new session json
     new_session(String(new_code));
 });
@@ -85,9 +101,19 @@ app.post("/session/add_song", (req, res) => {
     let user = req.query.n;
     let sid = req.query.sid;
 
+    sessions.get(code).songs.findIndex((x) => {
+        if(x.sid == sid) {
+            res.send({
+                status: 0,
+                message: "Song " + sid + " already added to session " + code
+            });
+            return;
+        }
+    });
+
     add_song(code, user, sid);
     
-    console.log("Song " + sid + " added to session " + code);
+    //console.log("Song " + sid + " added to session " + code);
 
     res.send({
         status: 0, 
@@ -95,17 +121,65 @@ app.post("/session/add_song", (req, res) => {
     });    
 });
 
+app.post("/session/upvote", (req, res) => {
+    let code = req.query.c;
+    let user = req.query.n;
+    let sid = req.query.sid;
+
+    let songs = sessions.get(code).songs;
+    let index = songs.findIndex((x) => {
+        return x.sid == sid;
+    });
+
+    songs[index].upvotes += 1;
+
+    if(user == undefined) user = "";
+    else songs[index].users.push(user);
+
+    //keep swapping until at correct place or at index 0
+    while(index > 0 && songs[index].upvotes > songs[index - 1].upvotes) {
+        let temp = Object.assign({}, songs[index]);
+        songs[index] = Object.assign({}, songs[index - 1]);
+        songs[index - 1] = Object.assign({}, temp);
+
+        index--;
+    }
+    //update hashmap with sorted list
+    sessions.get(code).songs = songs;
+    console.log(sessions.get(code).songs);
+
+    res.send({
+        status: 0, 
+        message: "Song " + sid + " in session " + code + " upvoted by " + user
+    });
+});
+
+app.get("/session/users", (req, res) => {
+    let code = req.query.c;
+    res.send({
+        status: 0, 
+        users: sessions.get(code).users
+    });
+});
+
 app.get("/session/playlist", (req, res) => {
     let code = req.query.c;
-    res.send({songs: sessions.get(code).songs});
+    res.send({
+        status: 0, 
+        songs: sessions.get(code).songs
+    });
 });
 
 app.get("/det_session_list", (req, res) => {
-    res.send({session_list: [...sessions.entries()]});
+    res.send({
+        session_list: [...sessions.entries()]
+    });
 });
 
 app.get("/session_list", (req, res) => {
-    res.send({code_list: codes});
+    res.send({
+        code_list: codes
+    });
 });
 
 // start express server on port 5001
