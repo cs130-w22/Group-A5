@@ -8,6 +8,7 @@ const PORT = 5001
 let codes = [0000];
 const sessions = new Map();//map code to session JSON
 
+
 const corsOptions ={
     origin:'*', 
     credentials:true,            //access-control-allow-credentials:true
@@ -35,6 +36,7 @@ app.use(cors(corsOptions));
 //middleware that uses regex to check if session code exists
 app.use('/session/*', (req, res, next) => {
     //if session code is found, continue with request like normal 
+    console.log(sessions);
     console.log(req.query);
     console.log("request with code " + req.query.c);
     let code = req.query.c;
