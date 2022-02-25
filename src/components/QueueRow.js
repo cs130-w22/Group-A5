@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from "react";
 import _ from 'lodash';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ListGroup, Image, Button } from 'react-bootstrap';
-import { initiateGetTrackResult, setTrack } from '../routes/actions/result';
+import { initiateGetTrackResult } from '../routes/actions/result';
 
 import music from '../images/music.jpeg';
 
 const QueueRow = (props) => {  
 
-  const {trackID, track, voteStatus, numVotes} = props;
+  const dispatch = useDispatch();
+  const {trackID, voteStatus, numVotes} = props;
 
   const [isLoading, setIsLoading] = useState(false);
   const [trackData, setTrackData] = useState({});
@@ -45,7 +46,7 @@ const QueueRow = (props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    props.dispatch(initiateGetTrackResult(trackID)).then((data) => {
+    dispatch(initiateGetTrackResult(trackID)).then((data) => {
       setTrackData(data);
       setIsLoading(false);
     });
@@ -74,13 +75,7 @@ const QueueRow = (props) => {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    track: state.track,
-  };
-};
-
-export default connect(mapStateToProps)(QueueRow);
+export default QueueRow;
 
 {/* <div>
         <div>{props.songName}</div>
