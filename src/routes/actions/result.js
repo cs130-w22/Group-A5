@@ -75,6 +75,17 @@ import {
       console.log('ERROR:', error);
     }
   }
+
+  export async function upvoteSong(parameters) {
+    try {
+      const API_URL = "http://localhost:5001/session/upvote";
+      const result = await post(API_URL, parameters); 
+      console.log(result); 
+      return result; 
+    } catch(error) {
+      console.log('ERROR:', error);
+    }
+  }
   
   export const initiateLoadMoreAlbums = (url) => {
     return (dispatch) => {

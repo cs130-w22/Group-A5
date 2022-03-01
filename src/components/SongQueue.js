@@ -6,7 +6,6 @@ import { getPlaylist } from '../routes/actions/result';
 const SongQueue = () => {
    
     const sessionCode = sessionStorage.getItem('sessionCode');
-    console.log("SongQueue sessionCode:", sessionCode);
 
     useEffect(() => {
     /**
