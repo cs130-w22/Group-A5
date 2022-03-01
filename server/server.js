@@ -7,7 +7,6 @@ const PORT = 5001
 
 let codes = [0000];
 const sessions = new Map();//map code to session JSON
-
 /*
 session JSON structure:
 {
@@ -87,7 +86,6 @@ app.post("/session/join", (req, res) => {
     let name = req.query.n;
     //add name to correct session
     sessions.get(code).users.push(name);
-
     res.send({
         status: 0,
         message: "User added to session"
@@ -105,6 +103,7 @@ app.post("/session/add_song", (req, res) => {
                 status: 0,
                 message: "Song " + sid + " already added to session " + code
             });
+            next();
             return;
         }
     });
@@ -129,26 +128,47 @@ app.post("/session/upvote", (req, res) => {
         return x.sid == sid;
     });
 
-    songs[index].upvotes += 1;
+    let upvote = true;
 
     if(user == undefined) user = "";
-    else songs[index].users.push(user);
+    else if (songs[index].users.includes(user)) {
+        upvote = false;
+        let uindex = songs[index].users.indexOf(user);
+        songs[index].users.splice(uindex, 1);
+        songs[index].upvotes -= 1;
+    }
+    else {
+        songs[index].users.push(user);
+        songs[index].upvotes += 1;
+    }
 
-    //keep swapping until at correct place or at index 0
-    while(index > 0 && songs[index].upvotes > songs[index - 1].upvotes) {
-        let temp = Object.assign({}, songs[index]);
-        songs[index] = Object.assign({}, songs[index - 1]);
-        songs[index - 1] = Object.assign({}, temp);
+    let msg = "upvoted";
+    //sort logic depends on wheter we upvoted or downvoted
+    if(upvote) {
+        while(index > 0 && songs[index].upvotes > songs[index - 1].upvotes) {
+            let temp = Object.assign({}, songs[index]);
+            songs[index] = Object.assign({}, songs[index - 1]);
+            songs[index - 1] = Object.assign({}, temp);
 
-        index--;
+            index--;
+        }
+    }
+    else {
+        msg = "downvoted";
+        while(index < songs.length - 1 && songs[index].upvotes < songs[index + 1].upvotes) {
+            let temp = Object.assign({}, songs[index]);
+            songs[index] = Object.assign({}, songs[index + 1]);
+            songs[index + 1] = Object.assign({}, temp);
+
+            index++;
+        }
     }
     //update hashmap with sorted list
     sessions.get(code).songs = songs;
-    console.log(sessions.get(code).songs);
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " in session " + code + " upvoted by " + user
+        message: "Song " + sid + " in session " + code + " " + msg +  " by " + user
     });
 });
 

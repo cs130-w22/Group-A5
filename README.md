@@ -42,7 +42,9 @@ POST **/session/upvote**:
   - _sid_: song id
 - return JSON:
   - _status_: 0 if request was successful
-- _note_: does not check if song code exists (yet)
+- _notes_: 
+  - does not check if song code exists (yet)
+  - to undo an upvote, simply send an upvote request with the same parameters
 
 # Repository Template
 
