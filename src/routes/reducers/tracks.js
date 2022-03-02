@@ -3,7 +3,8 @@ const tracksReducer = (state = {}, action) => {
   const { tracks } = action;
   switch (action.type) {
     case SET_TRACKS:
-      return tracks;
+      state = tracks;
+      return state;
     case ADD_TRACKS:
       return {
         ...state,

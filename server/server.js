@@ -43,11 +43,13 @@ function add_song(code, user, sid) {
     })
 }
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 
 //middleware that uses regex to check if session code exists
 app.use('/session/*', (req, res, next) => {
     //if session code is found, continue with request like normal 
+    console.log(sessions);
+    console.log(req.query);
     console.log("request with code " + req.query.c);
     let code = req.query.c;
     if(sessions.get(code) != undefined) {

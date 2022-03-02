@@ -1,27 +1,38 @@
 import React, {useEffect, useState} from "react";
 import _ from 'lodash';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ListGroup, Image, Button } from 'react-bootstrap';
-import { initiateGetTrackResult, setTrack } from '../routes/actions/result';
+import { initiateGetTrackResult } from '../routes/actions/result';
+import { upvoteSong } from '../routes/actions/result';
 
 import music from '../images/music.jpeg';
 
 const QueueRow = (props) => {  
 
-  const {trackID, track, voteStatus, numVotes} = props;
+  const dispatch = useDispatch();
+  const {trackID, voteStatus, numVotes} = props;
+  const sessionCode = sessionStorage.getItem('sessionCode');
 
   const [isLoading, setIsLoading] = useState(false);
   const [trackData, setTrackData] = useState({});
   const [userVoteStatus, setUserVoteStatus] = useState(voteStatus);
   const [trackNumVotes, setTrackNumVotes] = useState(numVotes); 
 
+  /* Downvote capability -- if a user has added the song to the queue, init with downvote ability */
+
   /**
      * +1 vote for the song corresponding to songID
      * @param {} songID - Some unique ID that identifies the song.
      * @param {*} votes 
      */
-   function upvote(songID) {
-
+  function upvote(songID) {
+    upvoteSong({
+      c: sessionCode, 
+      n: 'kt', 
+      sid: '4dCJwNoQG5Fx42pqIz99Vn' 
+    }).then((data) => {
+      console.log(data);
+    })
   }
 
   /**
@@ -45,7 +56,7 @@ const QueueRow = (props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    props.dispatch(initiateGetTrackResult(trackID)).then((data) => {
+    dispatch(initiateGetTrackResult(trackID)).then((data) => {
       setTrackData(data);
       setIsLoading(false);
     });
@@ -65,7 +76,7 @@ const QueueRow = (props) => {
             <div>{trackData.album.artists.map((artist) => artist.name).join(', ')}</div>
           </div>
         </div>
-        <Button className="form-button" variant="primary" type="button">
+        <Button className="form-button" variant="primary" type="button" onClick={() => upvote()}>
           Vote
         </Button>
       </ListGroup.Item>
@@ -74,13 +85,7 @@ const QueueRow = (props) => {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    track: state.track,
-  };
-};
-
-export default connect(mapStateToProps)(QueueRow);
+export default QueueRow;
 
 {/* <div>
         <div>{props.songName}</div>

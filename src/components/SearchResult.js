@@ -2,11 +2,11 @@ import React from 'react';
 import _ from 'lodash';
 import TracksList from './TracksList';
 import "./../style/SearchResult.css"; 
+import { useSelector } from 'react-redux';
 
-const SearchResult = (props) => {
-  const { result, selectedCategory } = props;
-  const { tracks } = result;
-
+const SearchResult = ({ selectedCategory }) => {
+  const tracks = useSelector(state => state.tracks);
+  
   return (
     <React.Fragment>
       <div className={`${selectedCategory === 'tracks' ? 'searchResult' : 'hide'}`}>

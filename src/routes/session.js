@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { connect, useSelector, useDispatch } from 'react-redux';
 import SearchForm from "../components/SearchForm";
 import Header from "../components/header";
 import Loader from "../components/Loader";
@@ -8,12 +8,13 @@ import SongQueue from "../components/SongQueue";
 import { initiateGetSearchResult } from './actions/result';
 
 const Session = (props) => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('tracks');
   
   const handleSearch = (searchTerm) => {
     setIsLoading(true);
-    props.dispatch(initiateGetSearchResult(searchTerm)).then(() => {
+    dispatch(initiateGetSearchResult(searchTerm)).then(() => {
       setIsLoading(false);
       setSelectedCategory('tracks');
     });
@@ -23,20 +24,17 @@ const Session = (props) => {
     setSelectedCategory(category);
   };
 
-  const { tracks } = props;
-  const result = { tracks };
-
   return (
     <React.Fragment>
       <Header />
       <SearchForm 
         handleSearch={handleSearch} 
-        result={result}
+        // result={result}
         selectedCategory={selectedCategory}
       />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
       <InviteMembers/>
-      <SongQueue />
+      <SongQueue/>
     </React.Fragment>
   );
   };
@@ -53,10 +51,12 @@ const Session = (props) => {
     );
   }*/
 
-  const mapStateToProps = (state) => {
+  /* const mapStateToProps = (state) => {
     return {
       tracks: state.tracks,
+      sessionCode: state.sessionCode
     };
-  };
+  }; */
   
-  export default connect(mapStateToProps)(Session);
+  // export default connect(mapStateToProps)(Session);
+  export default Session;
