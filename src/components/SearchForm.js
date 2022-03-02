@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import SearchResult from "../components/SearchResult";
+import SearchResults from "./SearchResults";
 import './../style/SearchForm.css'; 
 
 const SearchForm = (props) => {
@@ -43,7 +43,7 @@ const SearchForm = (props) => {
             autoComplete="off"
           />
           {searchTerm && 
-          (<SearchResult
+          (<SearchResults
               //loadMore={loadMore}
               selectedCategory={selectedCategory}
             />
