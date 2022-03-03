@@ -2,6 +2,7 @@ import React from 'react';
 import { ListGroup, Image, Form, Button } from 'react-bootstrap';
 import { postSong } from '../routes/actions/result';
 import "./../style/SingleResult.css"; 
+import "./../style/styles.css"; 
 
 const SingleResult = ({track, setSongQueue}) => {
   
@@ -15,7 +16,8 @@ const SingleResult = ({track, setSongQueue}) => {
       uri: track.uri
     }).then((data) => {
       //console.log(updatedSongQueue);
-      console.log(data)
+      console.log(data);
+      console.log(data.updatedSongQueue);
       setSongQueue(data.updatedSongQueue);
     });
   }
@@ -35,7 +37,7 @@ const SingleResult = ({track, setSongQueue}) => {
         </div>
       </div>
       
-      <Button className="form-button" variant="primary" type="button" onClick={addSong}>
+      <Button className="form-button custom-button" variant="primary" type="button" onClick={addSong}>
         Add
       </Button>
     </ListGroup.Item>
