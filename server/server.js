@@ -103,20 +103,21 @@ app.post("/session/add_song", (req, res) => {
         if(x.sid == sid) {
             res.send({
                 status: 0,
-                message: "Song " + sid + " already added to session " + code
+                message: "Song " + sid + " already added to session " + code,
+                updatedSongQueue: sessions.get(code).songs
             });
             next();
             return;
         }
     });
-
     add_song(code, user, sid);
     
     //console.log("Song " + sid + " added to session " + code);
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " added to session " + code
+        message: "Song " + sid + " added to session " + code,
+        updatedSongQueue: sessions.get(code).songs
     });    
 });
 
@@ -170,7 +171,8 @@ app.post("/session/upvote", (req, res) => {
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " in session " + code + " " + msg +  " by " + user
+        message: "Song " + sid + " in session " + code + " upvoted by " + user,
+        updatedSongQueue: sessions.get(code).songs
     });
 });
 
