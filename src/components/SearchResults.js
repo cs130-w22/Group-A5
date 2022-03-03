@@ -5,7 +5,7 @@ import "./../style/SearchResult.css";
 import { useSelector } from 'react-redux';
 import SingleResult from './SingleResult';
 
-const SearchResults = ({ selectedCategory }) => {
+const SearchResults = ({ selectedCategory, setSongQueue }) => {
   const tracks = useSelector(state => state.tracks);
   
   return (
@@ -16,7 +16,7 @@ const SearchResults = ({ selectedCategory }) => {
           <ListGroup id="list-container" className="container-fluid">
             {tracks.items.map((track, index) => {
               return (
-                <SingleResult key={index} track={track} />
+                <SingleResult key={index} track={track} setSongQueue={setSongQueue}/>
               )
             })}
           </ListGroup>

@@ -7,7 +7,7 @@ const SearchForm = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const { selectedCategory } = props;
+  const { selectedCategory, setSongQueue } = props;
 
   useEffect(() => {
     props.handleSearch(searchTerm);
@@ -46,6 +46,7 @@ const SearchForm = (props) => {
           (<SearchResults
               //loadMore={loadMore}
               selectedCategory={selectedCategory}
+              setSongQueue={setSongQueue}
             />
           )} 
         </Form.Group>

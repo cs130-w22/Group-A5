@@ -3,7 +3,7 @@ import { ListGroup, Image, Form, Button } from 'react-bootstrap';
 import { postSong } from '../routes/actions/result';
 import "./../style/SingleResult.css"; 
 
-const SingleResult = ({track}) => {
+const SingleResult = ({track, setSongQueue}) => {
   
   const sessionCode = sessionStorage.getItem('sessionCode');
 
@@ -12,8 +12,15 @@ const SingleResult = ({track}) => {
       c: sessionCode, 
       n: 'kt', 
       sid: track.id
+    }).then((data) => {
+      //console.log(updatedSongQueue);
+      console.log(data)
+      setSongQueue(data.updatedSongQueue);
     });
   }
+  // write a promise to get the result back from postsong, 
+//figure out what format song list should be in
+//callback (pass info from child to parent) 
 
   return(
     <ListGroup.Item key={track.id} className="container-fluid d-flex flex-row justify-content-between align-items-center">
