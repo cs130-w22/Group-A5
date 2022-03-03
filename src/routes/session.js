@@ -25,6 +25,8 @@ const Session = (props) => {
     setSelectedCategory(category);
   };
 
+  const [songQueue, setSongQueue] = useState([]);
+
   return (
     <React.Fragment>
       <Header />
@@ -32,13 +34,14 @@ const Session = (props) => {
         handleSearch={handleSearch} 
         // result={result}
         selectedCategory={selectedCategory}
+        setSongQueue = {setSongQueue}
       />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
       <InviteMembers/>
-      <SongQueue/>
+      <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
       <SpotifyWebPlayback/>
     </React.Fragment>
   );
   };
-  
+
   export default Session;

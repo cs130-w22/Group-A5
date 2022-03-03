@@ -10,7 +10,7 @@ import music from '../images/music.jpeg';
 const QueueRow = (props) => {  
 
   const dispatch = useDispatch();
-  const {trackID, voteStatus, numVotes} = props;
+  const {trackID, voteStatus, numVotes, setSongQueue} = props;
   const sessionCode = sessionStorage.getItem('sessionCode');
 
   const [isLoading, setIsLoading] = useState(false);
@@ -29,9 +29,10 @@ const QueueRow = (props) => {
     upvoteSong({
       c: sessionCode, 
       n: 'kt', 
-      sid: '4dCJwNoQG5Fx42pqIz99Vn' 
+      sid: songID
     }).then((data) => {
       console.log(data);
+      setSongQueue(data.updatedSongQueue);
     })
   }
 
@@ -76,9 +77,11 @@ const QueueRow = (props) => {
             <div>{trackData.album.artists.map((artist) => artist.name).join(', ')}</div>
           </div>
         </div>
-        <Button className="form-button" variant="primary" type="button" onClick={() => upvote()}>
+        <p>Votes: {numVotes}</p>
+        <Button className="form-button" variant="primary" type="button" onClick={() => upvote(trackID)}>
           Vote
         </Button>
+        
       </ListGroup.Item>
       )}
     </React.Fragment>
