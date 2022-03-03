@@ -37,7 +37,7 @@ const Session = (props) => {
       />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
       <InviteMembers/>
-      <SongQueue songArray={songQueue}/>
+      <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
     </React.Fragment>
   );
   };

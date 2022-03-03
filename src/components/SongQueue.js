@@ -3,7 +3,7 @@ import { ListGroup } from 'react-bootstrap';
 import QueueRow from "./QueueRow";
 import { getPlaylist } from '../routes/actions/result';
 
-const SongQueue = ({songArray}) => {
+const SongQueue = ({songArray, setSongQueue}) => {
    
     const sessionCode = sessionStorage.getItem('sessionCode');
 
@@ -40,6 +40,7 @@ const SongQueue = ({songArray}) => {
             <QueueRow 
               trackID={song.sid}
               numVotes={song.upvotes}
+              setSongQueue={setSongQueue}
             />
           )
         })}

@@ -151,7 +151,8 @@ app.post("/session/upvote", (req, res) => {
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " in session " + code + " upvoted by " + user
+        message: "Song " + sid + " in session " + code + " upvoted by " + user,
+        updatedSongQueue: sessions.get(code).songs
     });
 });
 

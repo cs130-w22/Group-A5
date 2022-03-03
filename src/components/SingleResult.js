@@ -33,6 +33,7 @@ const SingleResult = ({track, setSongQueue}) => {
           <div>{track.album.artists.map((artist) => artist.name).join(', ')}</div>
         </div>
       </div>
+      
       <Button className="form-button" variant="primary" type="button" onClick={addSong}>
         Add
       </Button>
