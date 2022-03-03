@@ -14,9 +14,9 @@ const SearchResults = ({ selectedCategory }) => {
         {tracks && Object.keys(tracks).length > 0 && (
         <div className="tracks">
           <ListGroup id="list-container" className="container-fluid">
-            {tracks.items.map((track) => {
+            {tracks.items.map((track, index) => {
               return (
-                <SingleResult track={track} />
+                <SingleResult key={index} track={track} />
               )
             })}
           </ListGroup>

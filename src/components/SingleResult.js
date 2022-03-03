@@ -11,7 +11,7 @@ const SingleResult = ({track}) => {
     postSong({
       c: sessionCode, 
       n: 'kt', 
-      sid: track.uri
+      sid: track.id
     });
   }
 
