@@ -38,6 +38,7 @@ const SongQueue = ({songArray, setSongQueue}) => {
         {songArray.map((song) => {
           return(
             <QueueRow 
+              key={song.sid}
               trackID={song.sid}
               numVotes={song.upvotes}
               setSongQueue={setSongQueue}
