@@ -114,13 +114,23 @@ app.post("/session/add_song", (req, res) => {
     });
 
     add_song(code, user, sid, uri);
-    
+    let songs = sessions.get(code).songs;
+    let index = songs.findIndex((x) => {
+        return x.sid == sid;
+    });
+    while(index > 0 && songs[index].upvotes > songs[index - 1].upvotes) {
+        let temp = Object.assign({}, songs[index]);
+        songs[index] = Object.assign({}, songs[index - 1]);
+        songs[index - 1] = Object.assign({}, temp);
+        index--;
+    }
+    sessions.get(code).songs = songs;
     //console.log("Song " + sid + " added to session " + code);
 
     res.send({
         status: 0, 
         message: "Song " + sid + " added to session " + code,
-        updatedSongQueue: sessions.get(code).songs
+        updatedSongQueue: songs
     });    
 });
 
