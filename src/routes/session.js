@@ -7,7 +7,7 @@ import InviteMembers from "../components/InviteMembers";
 import SongQueue from "../components/SongQueue";
 import SpotifyWebPlayback from "../components/SpotifyWebPlayback";
 import { initiateGetSearchResult } from './actions/result';
-import "../style/Session.css";
+
 
 const Session = (props) => {
   const dispatch = useDispatch();
