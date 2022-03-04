@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect, useCallback } from "react";
-import QRCode from "qrcode";
+//import QRCode from "qrcode";
 import {
   BsPauseCircle,
   BsFillPersonPlusFill, //add person
@@ -11,6 +11,7 @@ import {
 
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineCopy } from "react-icons/ai"; //copy symbol
+import { BiArrowBack } from "react-icons/bi";
 import "./../style/InviteUsers.css";
 
 //const session_code = require("./Temp");
@@ -22,8 +23,7 @@ const getMembers = async () => {
   let data = await response.json();
   let users = data.users;
   console.log(users);
-  m = users;
-  return users;
+  members = users;
 };
 
 let sc = undefined;
@@ -37,25 +37,19 @@ function InviteUsers() {
     let data = await response.json();
     setMembers(data.users);
   });
-
+  console.log(members);
+  console.log(sc);
   useEffect(() => {
     gM();
   }, []);
 
   const [src, setSrc] = useState("");
 
+  /*-
   useEffect(() => {
     QRCode.toDataURL(sc).then(setSrc);
   }, []);
-
-  return (
-    <div style={{}}>
-      <div id="container1">
-        <h1 class="style-3">
-          Invite your friends and Enjoy the Music Together!!
-        </h1>
-      </div>
-
+       
       <div className="qr-code">
         <img src={src} />
         <h1 style={{ color: "#00a300" }}>{sc}</h1>
@@ -66,10 +60,46 @@ function InviteUsers() {
           </button>
         </div>
       </div>
+  */
+
+  const handleBack = (event) => {
+    event.preventDefault();
+    window.location = "/dashboard";
+  };
+
+  return (
+    <div style={{}}>
+      <div className="back-arr">
+        <button className="my-btn" onClick={handleBack}>
+          <BiArrowBack style={{ color: "#00a300" }} />
+        </button>
+      </div>
+
+      <div id="container1">
+        <h1 class="style-3">
+          Invite your friends and Enjoy the Music Together!!
+        </h1>
+      </div>
+
+      <div className="qr-code">
+        <h1 style={{ color: "#00a300" }}>Session Code: {sc}</h1>
+
+        <div className="copy-code">
+          <button
+            className="my-btn"
+            onClick={() => navigator.clipboard.writeText(sc)}
+          >
+            <AiOutlineCopy style={{ color: "#00a300" }} />
+          </button>
+        </div>
+      </div>
 
       <div id="container2">
         <h1 class="style-1">Members</h1>
-        <button onClick={() => navigator.clipboard.writeText(sc)}>
+        <button
+          className="my-btn"
+          onClick={() => navigator.clipboard.writeText(sc)}
+        >
           <BsFillPersonPlusFill
             style={{ verticalAlign: "bottom", color: "#00A300" }}
           />

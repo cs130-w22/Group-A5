@@ -19,7 +19,7 @@ const JoinForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     setErrors(validation(values));
-    window.location = "/dashboard";
+    console.log("--->", values);
 
     let response2 = await fetch(
       `http://localhost:5001/session/users?c=${values.code}`
@@ -59,7 +59,7 @@ const JoinForm = () => {
 
     setTimeout(function () {
       window.location = "/dashboard";
-    }, 100);
+    }, 300);
 
     //let navigate = useHistory();
 

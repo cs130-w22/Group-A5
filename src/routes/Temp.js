@@ -22,10 +22,11 @@ const SignUpFormSuccess = () => {
 
     let response = await fetch("http://localhost:5001/new_session");
     let data = await response.json();
+    console.log(data);
     setSession_code(data.code);
     console.log(session_code);
 
-    await localStorage.setItem("session_code", session_code);
+    await localStorage.setItem("session_code", data.code);
     const sc = await localStorage.getItem("session_code");
     console.log(sc, "sc from storage in Temp.js createSession");
   };
@@ -60,16 +61,36 @@ const SignUpFormSuccess = () => {
         )}
 
         {session_code && (
-          <button onClick={() => navigator.clipboard.writeText(session_code)}>
-            <AiOutlineCopy
-              style={{
-                color: "#00a300",
-                position: "relative",
-                bottom: "190px",
-                left: "400px",
-                color: "#850c62",
-              }}
-            />
+          <button
+            style={{
+              color: "#00a300",
+              position: "absolute",
+              bottom: "340px",
+              left: "990px",
+              color: "#850c62",
+              background: "none",
+              border: "none",
+            }}
+            onClick={() => navigator.clipboard.writeText(session_code)}
+          >
+            <AiOutlineCopy />
+          </button>
+        )}
+
+        {session_code && (
+          <button
+            style={{
+              color: "#00a300",
+              bottom: "300px",
+              position: "absolute",
+              color: "black",
+              background: "none",
+              border: "none",
+              left: "570px",
+            }}
+            onClick={() => (window.location = "/join_session")}
+          >
+            Join Session
           </button>
         )}
       </div>
