@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import SearchResult from "../components/SearchResult";
+import SearchResults from "./SearchResults";
 import './../style/SearchForm.css'; 
+import './../style/styles.css'; 
 
 const SearchForm = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const { selectedCategory } = props;
+  const { selectedCategory, setSongQueue } = props;
 
   useEffect(() => {
     props.handleSearch(searchTerm);
@@ -41,15 +42,17 @@ const SearchForm = (props) => {
             placeholder="Search for an album, artist, or song"
             onChange={handleInputChange}
             autoComplete="off"
+            style={{backgroundColor: '#071622', borderColor: '#071622', color: '#F3F3E2'}}
           />
           {searchTerm && 
-          (<SearchResult
+          (<SearchResults
               //loadMore={loadMore}
               selectedCategory={selectedCategory}
+              setSongQueue={setSongQueue}
             />
           )} 
         </Form.Group>
-        <Button className="form-button" variant="info" type="submit">
+        <Button className="form-button custom-button" variant="primary" type="submit">
           Search
         </Button>
       </Form>

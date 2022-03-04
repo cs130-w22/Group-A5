@@ -5,12 +5,15 @@ import Header from "../components/header";
 import Loader from "../components/Loader";
 import InviteMembers from "../components/InviteMembers";
 import SongQueue from "../components/SongQueue";
+import SpotifyWebPlayback from "../components/SpotifyWebPlayback";
 import { initiateGetSearchResult } from './actions/result';
+import "../style/Session.css";
 
 const Session = (props) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('tracks');
+  const [songQueue, setSongQueue] = useState([]);
   
   const handleSearch = (searchTerm) => {
     setIsLoading(true);
@@ -31,32 +34,14 @@ const Session = (props) => {
         handleSearch={handleSearch} 
         // result={result}
         selectedCategory={selectedCategory}
+        setSongQueue = {setSongQueue}
       />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
       <InviteMembers/>
-      <SongQueue/>
+      <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
+      <SpotifyWebPlayback songArray={songQueue}/>
     </React.Fragment>
   );
   };
 
-  /*  return (
-      <main style={{ padding: "1rem 0" }}>
-        <h1>Session Page</h1>
-        <SearchBar/>
-        <InviteMembers/>
-        <SongQueue />
-        <h2>Session Page</h2>
-        <SearchForm>Search</SearchForm>
-      </main>
-    );
-  }*/
-
-  /* const mapStateToProps = (state) => {
-    return {
-      tracks: state.tracks,
-      sessionCode: state.sessionCode
-    };
-  }; */
-  
-  // export default connect(mapStateToProps)(Session);
   export default Session;
