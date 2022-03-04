@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from "react-redux";
 import SearchForm from "../components/SearchForm";
 import Header from "../components/header";
 import Loader from "../components/Loader";
@@ -19,7 +19,7 @@ const Session = (props) => {
     setIsLoading(true);
     dispatch(initiateGetSearchResult(searchTerm)).then(() => {
       setIsLoading(false);
-      setSelectedCategory('tracks');
+      setSelectedCategory("tracks");
     });
   };
 
@@ -30,8 +30,8 @@ const Session = (props) => {
   return (
     <React.Fragment>
       <Header />
-      <SearchForm 
-        handleSearch={handleSearch} 
+      <SearchForm
+        handleSearch={handleSearch}
         // result={result}
         selectedCategory={selectedCategory}
         setSongQueue = {setSongQueue}
@@ -42,6 +42,6 @@ const Session = (props) => {
       <SpotifyWebPlayback songArray={songQueue}/>
     </React.Fragment>
   );
-  };
+};
 
   export default Session;

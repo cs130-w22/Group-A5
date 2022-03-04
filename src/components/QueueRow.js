@@ -8,8 +8,7 @@ import music from '../images/music.jpeg';
 import './../style/styles.css'; 
 import { FaHeart } from "react-icons/fa";
 
-const QueueRow = (props) => {  
-
+const QueueRow = (props) => {
   const dispatch = useDispatch();
   const {trackID, voteStatus, numVotes, setSongQueue} = props;
   const sessionCode = sessionStorage.getItem('sessionCode');
@@ -17,15 +16,15 @@ const QueueRow = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [trackData, setTrackData] = useState({});
   const [userVoteStatus, setUserVoteStatus] = useState(voteStatus);
-  const [trackNumVotes, setTrackNumVotes] = useState(numVotes); 
+  const [trackNumVotes, setTrackNumVotes] = useState(numVotes);
 
   /* Downvote capability -- if a user has added the song to the queue, init with downvote ability */
 
   /**
-     * +1 vote for the song corresponding to songID
-     * @param {} songID - Some unique ID that identifies the song.
-     * @param {*} votes 
-     */
+   * +1 vote for the song corresponding to songID
+   * @param {} songID - Some unique ID that identifies the song.
+   * @param {*} votes
+   */
   function upvote(songID) {
     upvoteSong({
       c: sessionCode, 
@@ -41,14 +40,12 @@ const QueueRow = (props) => {
    * -1 vote for the song corresponding to songID
    * @param {*} songID - Some unique ID that identifies the song.
    */
-  function downvote(songID) {
-
-  }
+  function downvote(songID) {}
 
   function tempUpdate() {
-    setUserVoteStatus(!userVoteStatus); 
+    setUserVoteStatus(!userVoteStatus);
     console.log(userVoteStatus);
-    if(userVoteStatus) { 
+    if (userVoteStatus) {
       //upvote()
       setTrackNumVotes(trackNumVotes + 1);
     } else {
@@ -62,9 +59,9 @@ const QueueRow = (props) => {
       setTrackData(data);
       setIsLoading(false);
     });
-  }, [])
+  }, []);
 
-  // Expects the data in the item array from Spotify 
+  // Expects the data in the item array from Spotify
   return (
     <React.Fragment>
       {Object.keys(trackData).length > 0 && (
@@ -87,14 +84,6 @@ const QueueRow = (props) => {
       )}
     </React.Fragment>
   );
-}
+};
 
 export default QueueRow;
-
-{/* <div>
-        <div>{props.songName}</div>
-        <div>{props.songArtist}</div>
-        <div>{props.songNominator}</div>
-        <button onClick={() => tempUpdate()} >Vote</button>
-        <span>{numVotes}</span>
-    </div> */}
