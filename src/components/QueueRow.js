@@ -6,6 +6,7 @@ import { initiateGetTrackResult } from '../routes/actions/result';
 import { upvoteSong } from '../routes/actions/result';
 import music from '../images/music.jpeg';
 import './../style/styles.css'; 
+import { FaHeart } from "react-icons/fa";
 
 const QueueRow = (props) => {  
 
@@ -67,21 +68,20 @@ const QueueRow = (props) => {
   return (
     <React.Fragment>
       {Object.keys(trackData).length > 0 && (
-        <ListGroup.Item className="container-fluid d-flex flex-row justify-content-between align-items-center">
+        <ListGroup.Item className="container-fluid d-flex flex-row justify-content-between align-items-center" 
+                        style={{backgroundColor: '#071622', borderColor: '#0A2133', color: '#F3F3E2'}}>
           <div className="d-flex flex-row align-items-center">
             {!_.isEmpty(trackData.album.images) ? (
               <Image src={trackData.album.images[2].url}/>
             ) : <img src={music} alt="" />}
             <div className="info">
               <div>{trackData.name}</div>
-              <div>{trackData.album.artists.map((artist) => artist.name).join(', ')}</div>
+              <div >{trackData.album.artists.map((artist) => artist.name).join(', ')}</div>
             </div>
           </div>
-          <div>
-            <p>Votes: {numVotes}</p>
-            <Button className="form-button custom-button" variant="primary" type="button" onClick={() => upvote(trackID)}>
-              Vote
-            </Button>
+          <div style={{display: 'flex', flexDirection: 'row'}}> 
+            <p style={{marginRight: 10}}>{numVotes}</p>
+            <FaHeart size={28} onClick={() => upvote(trackID)}/>
           </div>
       </ListGroup.Item>
       )}

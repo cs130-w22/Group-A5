@@ -8,17 +8,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #FFECC2 !important;
+    /* background: #FFECC2 !important; */
+    background: #081A29 !important; 
     font-family: 'Montserrat', -apple-system, system-ui, BlinkMacSystemFont,
       'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 20px;
     letter-spacing: 1px;
-    color: #4F4F4F !important;
+    /* color: #4F4F4F !important; */
+    color: #F3F3E2 !important; 
   }
 
   .custom-button {
-    background-color: #E7858F !important;
-    border-color: #E7858F !important;
+    /* background-color: #E7858F !important;
+    border-color: #E7858F !important; */
+    background-color: #267593 !important;
+    border-color: #267593 !important;
+  }
+
+  ::placeholder {
+    color: #F3F3E2 !important; 
+    font-style: italic;
   }
   
   .btn {
