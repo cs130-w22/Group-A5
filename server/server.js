@@ -44,6 +44,7 @@ function add_song(code, user, sid) {
 }
 
 app.use(cors(corsOptions));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 //middleware that uses regex to check if session code exists
 app.use('/session/*', (req, res, next) => {
@@ -65,7 +66,7 @@ app.use('/session/*', (req, res, next) => {
 }); 
 
 app.get("/", (req, res) => {
-    res.send("<h1>hello world<h1>")
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 app.get("/new_session", (req, res) => {
@@ -170,7 +171,8 @@ app.post("/session/upvote", (req, res) => {
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " in session " + code + " " + msg +  " by " + user
+        message: "Song " + sid + " in session " + code + " " + msg +  " by " + user,
+        updatedSongQueue: sessions.get(code).songs
     });
 });
 
