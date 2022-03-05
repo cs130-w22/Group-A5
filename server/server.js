@@ -205,6 +205,6 @@ app.get("/session_list", (req, res) => {
 });
 
 // start express server on port 5001
-app.listen(PORT, () => {
-    console.log("server started on port ", PORT);
+app.listen(process.env.PORT || PORT, () => {
+    console.log("server started on port ", PORT, " or on " + process.env.PORT);
 });
