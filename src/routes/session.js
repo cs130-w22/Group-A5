@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from "react-redux";
 import SearchForm from "../components/SearchForm";
 import Header from "../components/header";
 import Loader from "../components/Loader";
 import InviteMembers from "../components/InviteMembers";
 import SongQueue from "../components/SongQueue";
+import SpotifyWebPlayback from "../components/SpotifyWebPlayback";
 import { initiateGetSearchResult } from './actions/result';
 
+/**
+   * Main session page which shows playlist and search bar
+   * 
+   */
 const Session = (props) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('tracks');
+  const [songQueue, setSongQueue] = useState([]);
   
   const handleSearch = (searchTerm) => {
     setIsLoading(true);
     dispatch(initiateGetSearchResult(searchTerm)).then(() => {
       setIsLoading(false);
-      setSelectedCategory('tracks');
+      setSelectedCategory("tracks");
     });
   };
 
@@ -27,36 +33,16 @@ const Session = (props) => {
   return (
     <React.Fragment>
       <Header />
-      <SearchForm 
-        handleSearch={handleSearch} 
-        // result={result}
+      <SearchForm
+        handleSearch={handleSearch}
         selectedCategory={selectedCategory}
+        setSongQueue = {setSongQueue}
       />
-      {/* <Loader show={isLoading}>Loading...</Loader> */}
       <InviteMembers/>
-      <SongQueue/>
+      <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
+      <SpotifyWebPlayback songArray={songQueue}/>
     </React.Fragment>
   );
-  };
+};
 
-  /*  return (
-      <main style={{ padding: "1rem 0" }}>
-        <h1>Session Page</h1>
-        <SearchBar/>
-        <InviteMembers/>
-        <SongQueue />
-        <h2>Session Page</h2>
-        <SearchForm>Search</SearchForm>
-      </main>
-    );
-  }*/
-
-  /* const mapStateToProps = (state) => {
-    return {
-      tracks: state.tracks,
-      sessionCode: state.sessionCode
-    };
-  }; */
-  
-  // export default connect(mapStateToProps)(Session);
   export default Session;

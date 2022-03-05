@@ -35,10 +35,11 @@ function new_session(code) {
     sessions.set(code, session);
 }
 
-function add_song(code, user, sid) {
+function add_song(code, user, sid, uri) {
     sessions.get(code).songs.push({
         users: [user],
         sid: sid,
+        uri: uri,
         upvotes: 1
     })
 }
@@ -98,25 +99,38 @@ app.post("/session/add_song", (req, res) => {
     let code = req.query.c;
     let user = req.query.n;
     let sid = req.query.sid;
+    let uri = req.query.uri;
 
     sessions.get(code).songs.findIndex((x) => {
         if(x.sid == sid) {
             res.send({
                 status: 0,
-                message: "Song " + sid + " already added to session " + code
+                message: "Song " + sid + " already added to session " + code,
+                updatedSongQueue: sessions.get(code).songs
             });
             next();
             return;
         }
     });
 
-    add_song(code, user, sid);
-    
+    add_song(code, user, sid, uri);
+    let songs = sessions.get(code).songs;
+    let index = songs.findIndex((x) => {
+        return x.sid == sid;
+    });
+    while(index > 0 && songs[index].upvotes > songs[index - 1].upvotes) {
+        let temp = Object.assign({}, songs[index]);
+        songs[index] = Object.assign({}, songs[index - 1]);
+        songs[index - 1] = Object.assign({}, temp);
+        index--;
+    }
+    sessions.get(code).songs = songs;
     //console.log("Song " + sid + " added to session " + code);
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " added to session " + code
+        message: "Song " + sid + " added to session " + code,
+        updatedSongQueue: songs
     });    
 });
 
@@ -170,7 +184,9 @@ app.post("/session/upvote", (req, res) => {
 
     res.send({
         status: 0, 
-        message: "Song " + sid + " in session " + code + " " + msg +  " by " + user
+        message: "Song " + sid + " in session " + code + " upvoted by " + user,
+        //user: user,
+        updatedSongQueue: songs
     });
 });
 
