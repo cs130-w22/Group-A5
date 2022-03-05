@@ -4,6 +4,7 @@ import SearchResults from "./SearchResults";
 import './../style/SearchForm.css'; 
 import './../style/styles.css'; 
 
+/* Create search bar where users can type to get related songs */
 const SearchForm = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [errorMsg, setErrorMsg] = useState('');

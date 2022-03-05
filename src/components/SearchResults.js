@@ -5,6 +5,8 @@ import "./../style/SearchResult.css";
 import { useSelector } from 'react-redux';
 import SingleResult from './SingleResult';
 
+
+/* Format search result data */
 const SearchResults = ({ selectedCategory, setSongQueue }) => {
   const tracks = useSelector(state => state.tracks);
   

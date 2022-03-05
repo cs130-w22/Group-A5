@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useSelector, useDispatch } from "react-redux";
 import SearchForm from "../components/SearchForm";
 import Header from "../components/header";
 import Loader from "../components/Loader";
@@ -8,7 +8,10 @@ import SongQueue from "../components/SongQueue";
 import SpotifyWebPlayback from "../components/SpotifyWebPlayback";
 import { initiateGetSearchResult } from './actions/result';
 
-
+/**
+   * Main session page which shows playlist and search bar
+   * 
+   */
 const Session = (props) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +22,7 @@ const Session = (props) => {
     setIsLoading(true);
     dispatch(initiateGetSearchResult(searchTerm)).then(() => {
       setIsLoading(false);
-      setSelectedCategory('tracks');
+      setSelectedCategory("tracks");
     });
   };
 
@@ -30,18 +33,16 @@ const Session = (props) => {
   return (
     <React.Fragment>
       <Header />
-      <SearchForm 
-        handleSearch={handleSearch} 
-        // result={result}
+      <SearchForm
+        handleSearch={handleSearch}
         selectedCategory={selectedCategory}
         setSongQueue = {setSongQueue}
       />
-      {/* <Loader show={isLoading}>Loading...</Loader> */}
       <InviteMembers/>
       <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
       <SpotifyWebPlayback songArray={songQueue}/>
     </React.Fragment>
   );
-  };
+};
 
   export default Session;
