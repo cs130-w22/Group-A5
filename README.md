@@ -1,7 +1,9 @@
 # Commands
 **npm run start** -> starts react server at port 3000<br>
 **npm run backend** -> starts backend server at port 5001<br>
-**npm run fullstack** -> runs above commands in parallel
+**npm run fullstack** -> runs above commands in parallel<br>
+**npm run testfrontend** -> runs frontend unit tests<br>
+**npm run testbackend** -> run backend unit tests
 
 # API
 GET **/new_session**:
