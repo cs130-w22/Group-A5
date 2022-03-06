@@ -65,7 +65,7 @@ app.use('/session/*', (req, res, next) => {
 }); 
 
 app.get("/", (req, res) => {
-    res.send("<h1>hello world<h1>")
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 app.get("/new_session", (req, res) => {
@@ -203,6 +203,6 @@ app.get("/session_list", (req, res) => {
 });
 
 // start express server on port 5001
-app.listen(PORT, () => {
-    console.log("server started on port ", PORT);
+app.listen(process.env.PORT || PORT, () => {
+    console.log("server started on port ", PORT, " or on " + process.env.PORT);
 });
