@@ -73,7 +73,7 @@
 }
 
 .error {
-  color: red;
+  color: #f7c308;
 }
 
 .submit {
@@ -90,6 +90,8 @@
   border: none;
   cursor: pointer;
   transition: all 0.1s;
+  position: absolute;
+  left: 480px;
 }
 
 button:active {

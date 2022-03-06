@@ -2,13 +2,17 @@ import React, { useState, useEffect, Component } from "react";
 import { useHistory } from "react-router-dom";
 
 import validation from "../components/validation";
+import { Button } from "react-bootstrap";
 
 const JoinForm = () => {
+  //for user feedback
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    fullname: "",
+    fullname: "", //only have fullname and session code
     code: "",
   });
+
+  //to update text fields as user types
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -16,26 +20,34 @@ const JoinForm = () => {
     });
   };
 
+  //once submit check for errors and handle accordingly
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setErrors(validation(values));
+    setErrors(validation(values)); //check for errors
     console.log("--->", values);
+    if (errors.fullname || errors.code) {
+      return;
+    }
 
+    //check if user already exists.
     let response2 = await fetch(
       `http://localhost:5001/session/users?c=${values.code}`
     );
     let data2 = await response2.json();
-    if (data2.users.includes(values.fullname)) {
+    console.log("!!", data2);
+    if (data2.users && data2.users.includes(values.fullname)) {
       setErrors((prevState) => {
         return Object.assign({}, prevState, {
           fullname: "Name Already Exist!",
         });
       });
+
       return;
     }
 
     let response = await fetch("http://localhost:5001/session_list");
     let data = await response.json();
+    console.log("data", data);
     let session_codes = data.code_list;
     console.log(session_codes);
 
@@ -55,8 +67,10 @@ const JoinForm = () => {
       setErrors((prevState) => {
         return Object.assign({}, prevState, { code: "Session Doesn't Exist!" });
       });
+      return;
     }
 
+    console.log(errors.fullname, errors.code);
     setTimeout(function () {
       window.location = "/dashboard";
     }, 300);
@@ -98,9 +112,9 @@ const JoinForm = () => {
           </div>
 
           <div>
-            <button className="submit" onClick={handleFormSubmit}>
+            <Button className="submit" onClick={handleFormSubmit}>
               Join Now
-            </button>
+            </Button>
           </div>
         </form>
       </div>
