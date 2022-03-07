@@ -16,6 +16,7 @@ import "./../style/InviteUsers.css";
 
 //const session_code = require("./Temp");
 let m = undefined;
+//gets all the members in the session.
 const getMembers = async () => {
   const sc = localStorage.getItem("session_code");
   console.log(sc, "code from Invite Users");
@@ -37,8 +38,10 @@ function InviteUsers() {
     let data = await response.json();
     setMembers(data.users);
   });
-  console.log(members);
-  console.log(sc);
+  //console.log(members);
+  //console.log(sc);
+
+  //so that it will be updated once done.
   useEffect(() => {
     gM();
   }, []);
@@ -62,6 +65,7 @@ function InviteUsers() {
       </div>
   */
 
+  //go back arrow to go back to dashboard
   const handleBack = (event) => {
     event.preventDefault();
     window.location = "/dashboard";

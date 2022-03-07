@@ -14,10 +14,12 @@ const App = (props) => {
     window.location = `${REACT_APP_AUTHORIZE_URL}?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URL}&response_type=token&show_dialog=true`;
   };
 
+  //will be directed to join session page once clicked. 
   const handleJoin = () => {
     window.location = "/join_session";
   };
 
+  
   useEffect(() => {
     /* Get a session cdeo from the server and store it in SessionStorage */
     createSession().then((sessionCode) => {

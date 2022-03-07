@@ -34,7 +34,7 @@ const JoinForm = () => {
       `http://localhost:5001/session/users?c=${values.code}`
     );
     let data2 = await response2.json();
-    console.log("!!", data2);
+    //console.log("!!", data2);
     if (data2.users && data2.users.includes(values.fullname)) {
       setErrors((prevState) => {
         return Object.assign({}, prevState, {
@@ -42,15 +42,17 @@ const JoinForm = () => {
         });
       });
 
-      return;
+      return; //return without adding if user already exists.
     }
 
+    //check to see if given code is valid or not.
     let response = await fetch("http://localhost:5001/session_list");
     let data = await response.json();
     console.log("data", data);
     let session_codes = data.code_list;
     console.log(session_codes);
 
+    // if valid code --> add user.
     if (session_codes.includes(+values.code)) {
       response = await fetch(
         `http://localhost:5001/session/join?c=${values.code}&n=${values.fullname}`,
@@ -64,6 +66,7 @@ const JoinForm = () => {
       );
       data = await response.json();
     } else {
+      // if not valid code--> warn the user
       setErrors((prevState) => {
         return Object.assign({}, prevState, { code: "Session Doesn't Exist!" });
       });

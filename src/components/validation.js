@@ -1,3 +1,4 @@
+//checks whether join form has the correct information.
 const validation = (values) => {
   let errors = {};
 
