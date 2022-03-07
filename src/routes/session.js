@@ -37,7 +37,7 @@ const Session = (props) => {
         setSongQueue = {setSongQueue}
       />
       {/* <Loader show={isLoading}>Loading...</Loader> */}
-      <InviteMembers/>
+      {/* <InviteMembers/> */}
       <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
       <SpotifyWebPlayback songArray={songQueue}/>
     </React.Fragment>

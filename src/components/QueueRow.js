@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
-import { ListGroup, Image, Button } from 'react-bootstrap';
+import { ListGroup, Image } from 'react-bootstrap';
 import { initiateGetTrackResult } from '../routes/actions/result';
 import { upvoteSong } from '../routes/actions/result';
 import music from '../images/music.jpeg';

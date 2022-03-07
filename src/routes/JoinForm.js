@@ -21,10 +21,11 @@ const JoinForm = () => {
     setErrors(validation(values));
     console.log("--->", values);
 
-    let response2 = await fetch(
+    // Check if username already exists within a session
+    let usersWithinASession = await fetch(
       `http://localhost:5001/session/users?c=${values.code}`
     );
-    let data2 = await response2.json();
+    let data2 = await usersWithinASession.json();
     if (data2.users.includes(values.fullname)) {
       setErrors((prevState) => {
         return Object.assign({}, prevState, {
@@ -34,6 +35,7 @@ const JoinForm = () => {
       return;
     }
 
+    // Check if the session ID exists
     let response = await fetch("http://localhost:5001/session_list");
     let data = await response.json();
     let session_codes = data.code_list;
@@ -57,9 +59,9 @@ const JoinForm = () => {
       });
     }
 
-    setTimeout(function () {
+    /* setTimeout(function () {
       window.location = "/dashboard";
-    }, 300);
+    }, 300); */
 
     //let navigate = useHistory();
 

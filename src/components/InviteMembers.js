@@ -11,7 +11,7 @@ import './../style/styles.css';
 const InviteMembers = () => {
   return (
     <form action="/invite_users" method="GET">
-      <Button type="submit" variant="primary">
+      <Button className="custom-button" type="submit" variant="primary">
         Invite Members
       </Button>
     </form>

@@ -34,7 +34,8 @@ const SpotifyWebPlayback = ({songArray}) => {
           color: '#F3F3E2',
           bgColor: '#081A29', 
           trackNameColor: '#F3F3E2', 
-          trackArtistColor: '#F3F3E2'
+          trackArtistColor: '#F3F3E2',
+          errorColor: '#E89BBB'
         }}
       />
     </div>
