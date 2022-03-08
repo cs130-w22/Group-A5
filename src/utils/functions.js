@@ -1,4 +1,8 @@
 import axios from 'axios';
+
+/**
+   * Call backend functions
+   */
 export const getParamValues = (url) => {
   return url
     .slice(1)

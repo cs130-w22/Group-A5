@@ -43,6 +43,7 @@ const SearchForm = (props) => {
             placeholder="Search for an album, artist, or song"
             onChange={handleInputChange}
             autoComplete="off"
+            style={{backgroundColor: '#071622', borderColor: '#071622', color: '#F3F3E2'}}
           />
           {searchTerm && 
           (<SearchResults

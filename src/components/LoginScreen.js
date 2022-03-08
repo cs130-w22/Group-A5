@@ -11,6 +11,9 @@ import {
   setSigingIn,
 } from './authenticationSlice';
 
+/**
+   * Create Login page
+   */
 class LoginScreen extends Component {
   state = {};
 

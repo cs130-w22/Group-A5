@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+   * Create search bar for the session page
+   */
 const SearchBar = () => {
   return (
     <form>

@@ -9,6 +9,9 @@ import InviteUsers from "../InviteUsers";
 import Temp from "../Temp";
 import JoinForm from "../JoinForm";
 
+/**
+   * Direct to next page upon button push
+   */
 const AppRouter = (props) => {
   return (
     <BrowserRouter>

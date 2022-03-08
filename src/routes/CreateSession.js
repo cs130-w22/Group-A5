@@ -3,6 +3,9 @@ import "./../style/InviteUsers.css";
 import { Link } from "react-router-dom";
 import Session from "./session";
 
+/**
+   * Page after you have signed in to spotify
+   */
 const SignUpFormSuccess = () => {
   return (
     <div className="container">

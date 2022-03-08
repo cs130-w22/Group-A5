@@ -1,3 +1,6 @@
+/**
+   * Intermediate functions for various tasks
+   */
 import {
     SET_TRACKS,
     ADD_TRACKS

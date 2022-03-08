@@ -1,13 +1,20 @@
 import React, {useEffect, useState} from "react";
 import _ from 'lodash';
 import { useDispatch } from 'react-redux';
-import { ListGroup, Image, Button } from 'react-bootstrap';
+import { ListGroup, Image } from 'react-bootstrap';
 import { initiateGetTrackResult } from '../routes/actions/result';
 import { upvoteSong } from '../routes/actions/result';
 import music from '../images/music.jpeg';
 import './../style/styles.css'; 
+import { FaHeart } from "react-icons/fa";
 
-
+/**
+   * Create each row in the playlist
+   * @param {*} trackID - Some unique ID that identifies the song.
+   * @param {*} voteStatus - Check if the user has voted for this song yet
+   * @param {*} numVotes - the number of votes for the song
+   * @param {*} setSongQueue - variable to connect to overall playlist
+   */
 const QueueRow = (props) => {
   const dispatch = useDispatch();
   const {trackID, voteStatus, numVotes, setSongQueue} = props;
@@ -65,36 +72,25 @@ const QueueRow = (props) => {
   return (
     <React.Fragment>
       {Object.keys(trackData).length > 0 && (
-        <ListGroup.Item className="container-fluid d-flex flex-row justify-content-between align-items-center">
+        <ListGroup.Item className="container-fluid d-flex flex-row justify-content-between align-items-center" 
+                        style={{backgroundColor: '#071622', borderColor: '#0A2133', color: '#F3F3E2'}}>
           <div className="d-flex flex-row align-items-center">
             {!_.isEmpty(trackData.album.images) ? (
               <Image src={trackData.album.images[2].url}/>
             ) : <img src={music} alt="" />}
             <div className="info">
               <div>{trackData.name}</div>
-              <div>{trackData.album.artists.map((artist) => artist.name).join(', ')}</div>
+              <div >{trackData.album.artists.map((artist) => artist.name).join(', ')}</div>
             </div>
           </div>
-          <div>
-            <p>Votes: {numVotes}</p>
-            <Button className="form-button custom-button" variant="primary" type="button" onClick={() => upvote(trackID)}>
-              Vote
-            </Button>
+          <div style={{display: 'flex', flexDirection: 'row'}}> 
+            <p style={{marginRight: 10}}>{numVotes}</p>
+            <FaHeart size={28} onClick={() => upvote(trackID)}/>
           </div>
       </ListGroup.Item>
       )}
     </React.Fragment>
   );
-}
+};
 
 export default QueueRow;
-
-
-  /* <div>
-        <div>{props.songName}</div>
-        <div>{props.songArtist}</div>
-        <div>{props.songNominator}</div>
-        <button onClick={() => tempUpdate()} >Vote</button>
-        <span>{numVotes}</span>
-    </div> */
-

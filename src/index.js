@@ -6,6 +6,9 @@ import AppRouter from './routes/router/AppRouter';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/styles.css';
 
+/**
+   * store information and use app router
+   */
 ReactDOM.render(
     <Provider store={store}>
         <AppRouter />

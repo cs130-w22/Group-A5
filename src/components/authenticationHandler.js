@@ -1,5 +1,9 @@
 import {authorize, refresh} from 'react-native-app-auth';
 
+/**
+   * Handle authentication with Spotify
+   * 
+   */
 class AuthenticationHandler {
   constructor() {
     this.spotifyAuthConfig = {

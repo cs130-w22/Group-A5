@@ -14,10 +14,13 @@ import { AiOutlineCopy } from "react-icons/ai"; //copy symbol
 import { BiArrowBack } from "react-icons/bi";
 import "./../style/InviteUsers.css";
 
-//const session_code = require("./Temp");
+
+/**
+   * Get all users in the current session
+   */
 let m = undefined;
 const getMembers = async () => {
-  const sc = localStorage.getItem("session_code");
+  const sc = sessionStorage.getItem("sessionCode");
   console.log(sc, "code from Invite Users");
   let response = await fetch(`http://localhost:5001/session/users?c=${sc}`);
   let data = await response.json();
@@ -26,12 +29,14 @@ const getMembers = async () => {
   members = users;
 };
 
-let sc = undefined;
+/**
+   * Create Invite Users Page
+   */
+let sc = sessionStorage.getItem("sessionCode");
 //https://www.codegrepper.com/code-examples/javascript/how+to+wait+for+promise+resolved+in+useeffect
 function InviteUsers() {
   const [members, setMembers] = useState([]);
   const gM = useCallback(async () => {
-    sc = localStorage.getItem("session_code");
     console.log(sc, "code from Invite Users");
     let response = await fetch(`http://localhost:5001/session/users?c=${sc}`);
     let data = await response.json();

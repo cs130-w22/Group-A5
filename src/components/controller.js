@@ -4,6 +4,9 @@ const spotifyConfig = {
     redirectUrl: "com.authdemo://oauthredirect"
 };
 
+/**
+   * Retrieve Spotify access token
+   */
 async function proxySpotifyToken(_req, res){
     //Retrieve code from request
     const code = _req.body.code;
@@ -22,8 +25,6 @@ async function proxySpotifyToken(_req, res){
         //Retrieve new refresh token and access token
         return res.json({ todo: "Get refresh token & access token"});
     }
-
-
 }
 
 module.exports = {

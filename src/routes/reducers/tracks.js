@@ -1,3 +1,7 @@
+/**
+   * Add or set tracks
+   */
+
 import { SET_TRACKS, ADD_TRACKS } from '../../utils/constants';
 const tracksReducer = (state = {}, action) => {
   const { tracks } = action;

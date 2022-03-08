@@ -35,10 +35,12 @@ const Session = (props) => {
       <Header />
       <SearchForm
         handleSearch={handleSearch}
+        // result={result}
         selectedCategory={selectedCategory}
         setSongQueue = {setSongQueue}
       />
-      <InviteMembers/>
+      {/* <Loader show={isLoading}>Loading...</Loader> */}
+      {/* <InviteMembers/> */}
       <SongQueue songArray={songQueue} setSongQueue={setSongQueue}/>
       <SpotifyWebPlayback songArray={songQueue}/>
     </React.Fragment>

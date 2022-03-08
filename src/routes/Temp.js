@@ -8,6 +8,9 @@ import { AiOutlineCopy } from "react-icons/ai"; //copy symbol
 
 let code_place = "";
 
+/**
+   * create session
+   */
 const SignUpFormSuccess = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [session_code, setSession_code] = useState("");

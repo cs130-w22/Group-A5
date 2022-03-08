@@ -1,3 +1,7 @@
+/**
+   * Check if session code and name have been entered correctly on the home page
+   * @param {*} values - holds the values that were input for the session code and name
+   */
 const validation = (values) => {
   let errors = {};
 

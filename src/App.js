@@ -1,48 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import Header from "./components/header";
 import "./style/App.css";
 import { createSession } from "./routes/actions/result";
-
-const REACT_APP_CLIENT_ID="7c0965d9847a4d0db32dc57a79ca3d9e";
-const REACT_APP_AUTHORIZE_URL="https://accounts.spotify.com/authorize";
-const REACT_APP_REDIRECT_URL="http://localhost:3000/redirect";
-const SCOPE = 'streaming user-read-email user-read-private user-read-playback-state user-modify-playback-state';
+import SessionModal from "./components/SessionModal";
 
 /*
-Show authorization prompt for spotify on home page after clicking the login button
+* Show authorization prompt for spotify on home page after clicking the login button
 */
 const App = (props) => {
-  const handleLogin = () => {
-    window.location = `${REACT_APP_AUTHORIZE_URL}?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URL}&scope=${SCOPE}&response_type=token&show_dialog=true`;
-  };
+  const [displayModal, setDisplayModal] = useState(false);
+  const [modalType, setModalType] = useState('Join');
+
+  const handleCreate = () => {
+    setDisplayModal(true);
+    setModalType('Create');
+  }
 
   const handleJoin = () => {
-    window.location = "/join_session";
+    setDisplayModal(true);
+    setModalType('Join');
+    // window.location = "/join_session";
   };
 
-  useEffect(() => {
-    /* Get a session code from the server and store it in SessionStorage */
+  /* useEffect(() => {
+    // Get a session code from the server and store it in SessionStorage 
     createSession().then((sessionCode) => {
       sessionStorage.setItem("sessionCode", sessionCode);
     });
-  }, []);
+  }, []); */
 
   return (
     <div className="login">
-      <Header />
+      <h1  className="main-heading">Welcome!</h1>
       <Button
+        className="custom-button"
         style={{ marginBottom: "35px" }}
         variant="info"
         type="submit"
-        onClick={handleLogin}
+        onClick={handleCreate}
       >
-        Login to spotify
+        Create Session
       </Button>
-      <Button variant="info" type="submit" onClick={handleJoin}>
-        Join a Session!
+      <Button className="custom-button" variant="info" type="submit" onClick={handleJoin}>
+        Join Session
       </Button>
+      <SessionModal show={displayModal} setShow={setDisplayModal} type={modalType}/>
     </div>
   );
 };

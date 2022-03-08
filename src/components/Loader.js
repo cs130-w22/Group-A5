@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-/* Display loading message when page is loading */
+/* 
+* Display loading message when page is loading 
+*/
 const Loader = (props) => {
   const [node] = useState(document.createElement('div'));
   const loader = document.querySelector('#loader');

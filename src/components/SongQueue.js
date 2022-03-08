@@ -3,6 +3,11 @@ import { ListGroup } from 'react-bootstrap';
 import QueueRow from "./QueueRow";
 import { getPlaylist } from '../routes/actions/result';
 
+/**
+   * Represents the playlist, each song in the list is represented by a QueueRow object
+   * @param {*} songArray - list of the songs in an array 
+   * @param {*} setSongQueue - information passed in about the playlist
+   */
 const SongQueue = ({songArray, setSongQueue}) => {
    
     const sessionCode = sessionStorage.getItem('sessionCode');

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+   * Feature to play songs
+   */
 function WebPlayback(props) {
     useEffect(() => {
 
